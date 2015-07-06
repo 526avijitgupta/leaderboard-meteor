@@ -8,6 +8,7 @@
 </body>
 
 <template name="leaderboard">
+    {{#if currentUser}}
     <ul>
         {{#each player}}
             <li class="player {{selectedClass}}">{{name}}: {{score}}</li>
@@ -20,13 +21,12 @@
         {{/if}}
     </ul>
     {{> addPlayerForm}}
+    {{/if}}
 </template>
 
 <template name="addPlayerForm">
-    {{#if currentUser}}
         <form>
             <input name="playerName" type="text">
             <input type="submit" value="Add Player">
         </form>
-    {{/if}}
 </template>
