@@ -1,32 +1,99 @@
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Leaderboard</title>
 </head>
 <body>
-    <h1>Leaderboard</h1>
-    {{> loginButtons}}
-    {{> leaderboard}}
+    <nav class="navbar navbar-default">
+        <div class="pull-right">
+            {{> loginButtons}}
+        </div>
+    </nav>
+    <div class="container">
+        {{> leaderboard}}
+    </div>
 </body>
 
 <template name="leaderboard">
     {{#if currentUser}}
-    <ul>
-        {{#each player}}
-            <li class="player {{selectedClass}}">{{name}}: {{score}}</li>
-        {{/each}}
-        {{#if showSelectedPlayer}}
-            <input type="button" class="increment" value="Give 5 Points">
-            <input type="button" class="decrement" value="Take 5 Points">
-            <li>Selected Player: {{showSelectedPlayer.name}}</li>
-            <input class="remove" type="button" value="Remove player">
-        {{/if}}
-    </ul>
+    <div class="row">
+        <h2 class="text-center">Leaderboard <small>A Meteor Starter App</small>
+        </h2>
+    </div>
+    <div class="row top10">
+        <div class="panel panel-default">
+            <div class="panel-heading">Scorecard</div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each player}}
+                    <tr class="player {{selectedClass}}">
+                        <td>{{name}}</td>
+                        <td>{{score}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{#if showSelectedPlayer}}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Actions:</h3>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-danger remove" type="button">
+                Remove this player
+            </button>
+            <button type="button" class="btn btn-primary increment">
+                Give 5 Points
+            </button>
+            <button type="button" class="btn btn-primary decrement">
+                Take 5 Points
+            </button>
+        </div>
+    </div>
+    {{/if}}
     {{> addPlayerForm}}
+    {{else}}
+    {{> homePage}}
     {{/if}}
 </template>
 
 <template name="addPlayerForm">
-        <form>
-            <input name="playerName" type="text">
-            <input type="submit" value="Add Player">
-        </form>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="playerName">Name</label>
+            <input name="playerName"
+                   class="form-control"
+                   type="text"
+                   placeholder="Name">
+        </div>
+        <button type="submit" class="btn btn-success">
+            Add Player
+        </button>
+    </form>
+</template>
+
+<template name="homePage">
+    <div class="jumbotron">
+        <h1>Leaderboard</h1>
+        <p>A
+            <a href="https://meteor.com" target="_blank">Meteor</a>
+            Starter App. To continue, please Sign in / Join by clicking at the button at the top right corner of the page.
+        </p>
+        <p> Want to learn how to build one? </p>
+        <p>
+            <a class="btn btn-primary btn-lg"
+               href="http://meteortips.com/first-meteor-tutorial/projects/"
+               target="_blank"
+               role="button">
+                Yes, I do!
+            </a>
+        </p>
+    </div>
 </template>

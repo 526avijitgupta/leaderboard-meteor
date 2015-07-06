@@ -9,7 +9,7 @@ Template.leaderboard.helpers({
         var playerId = this._id;
         var selectedPlayer = Session.get('selectedPlayer');
         if (selectedPlayer === playerId) {
-            return "selected";
+            return "active";
         }
     },
     'showSelectedPlayer': function() {
